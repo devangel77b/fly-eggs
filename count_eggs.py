@@ -5,6 +5,8 @@
 import argparse
 import logging
 import cv2
+import numpy as np
+import pandas as pd
 
 if __name__ == "__main__":
     # this just gets some command line arguments 
@@ -23,8 +25,9 @@ if __name__ == "__main__":
     # initialize display window
     cv2.namedWindow("count_eggs",cv2.WINDOW_NORMAL)
 
-
-
+    # initialize morphological kernel
+    opening_kernel = np.ones((7,7),np.uint8)
+    dilation_kernel = np.ones((3,3),np.uint8)
 
 
 
@@ -35,13 +38,14 @@ if __name__ == "__main__":
     # threshold it
     retval,thresh = cv2.threshold(gray,64,255,cv2.THRESH_BINARY_INV)
 
+    # erosion-dilation operation to get rid of breathing tubes
+    opened = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,opening_kernel)
+    dilated = cv2.dilate(opened,dilation_kernel,iterations=1)
+
     # find contours
-    working = thresh.copy()
+    working = dilated.copy()
     contours,hierarchy = cv2.findContours(working,cv2.cv.CV_RETR_LIST,
                                           cv2.cv.CV_CHAIN_APPROX_NONE)
-
-    # erosion-dilation operation to get rid of breathing tubes
-    # LATER
 
     # draw stuff
     draw = cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR)
