@@ -26,7 +26,7 @@ if __name__ == "__main__":
     cv2.namedWindow("count_eggs",cv2.WINDOW_NORMAL)
 
     # initialize morphological kernel
-    opening_kernel = np.ones((7,7),np.uint8)
+    opening_kernel = np.ones((5,5),np.uint8)
     dilation_kernel = np.ones((3,3),np.uint8)
 
 
@@ -49,12 +49,14 @@ if __name__ == "__main__":
 
     # draw stuff
     draw = cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR)
-    cv2.drawContours(draw,contours,-1,(0,0,255))
+    cv2.drawContours(draw,contours,-1,(0,0,255),2)
     cv2.imshow("count_eggs",draw)
     cv2.waitKey()
 
     # compute moments and tabulate output
     # LATER
+    # there should be 24 for the test image
+    # copy what we do for turtle size acceptance limits
 
     logging.debug("cleaning up")
     cv2.destroyAllWindows()
