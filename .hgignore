@@ -2,5 +2,6 @@ syntax: glob
 *~
 *.png
 *.tiff
+*.csv
 
 syntax: regexp
