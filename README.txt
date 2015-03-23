@@ -3,7 +3,7 @@ Automatic fly egg counting and measuring
 This code counts and measures Drosophila eggs in photos.  
 
 Example methods text
-====================
+--------------------
 Eggs were placed on slides... (LAURA FILL IN). Images of the prepared slides 
 were obtained by... (LAURA FILL IN). Images were xxx by xxx TIFF format images,
 N images for the entire dataset comprising x MB. 
@@ -24,7 +24,7 @@ In a test image that was manually measured, the manual measurements differed
 from the automatic measurements by TINY%. 
 
 Contributors
-============
+------------
 Laura Sligar is the egg project lead.  We thank Dennis Evangelista for providing
 the Python code for automatic counting and measurement of eggs.
 
