@@ -13,6 +13,7 @@ import logging
 import cv2
 import numpy as np
 import pandas as pd
+import os
 
 if __name__ == "__main__":
     # this just gets some command line arguments 
@@ -44,7 +45,7 @@ if __name__ == "__main__":
     dilation_kernel = np.ones((3,3),np.uint8)
 
     # output header
-    print("filename,area,length,width")
+    print("species,flyid,date,area,length,width")
 
 
 
@@ -66,6 +67,11 @@ if __name__ == "__main__":
         contours,hierarchy = cv2.findContours(working,cv2.cv.CV_RETR_LIST,
                                               cv2.cv.CV_CHAIN_APPROX_NONE)
 
+        # strip metadata out of filename
+        head,tail = os.path.split(eachfname)
+        fname,extension = os.path.splitext(tail)
+        splitted = fname.split('_')
+
         # draw stuff
         if args.display:
             draw = cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR)
@@ -83,8 +89,11 @@ if __name__ == "__main__":
             major = np.argmax(axes)
             minor = 1-major
             if area>float(args.athreshold):
-                print("{0},{1},{2},{3}".format(eachfname,area,axes[major],
-                                               axes[minor]))
+                print("{0},{1},{2},{3},{4},{5}".format(splitted[0],
+                                                       splitted[1],
+                                                       splitted[2],
+                                                       area,axes[major],
+                                                       axes[minor]))
 
     logging.debug("cleaning up")
     if args.display:
