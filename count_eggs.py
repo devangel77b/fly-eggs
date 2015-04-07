@@ -5,6 +5,9 @@ This script will detect eggs (any dark blobs) in an image and output
 as the major and minor axis lengths, respectively.  This script outputs all
 measurements in pixels, e.g. area in pixels^2 and length and width in pixels.
 They can be converted afterwards with a photo of a ruler on the same stage.
+The filename is expected to be of the form SPECIES_FLYID_DATE.tiff.  If it is
+not that this will fail; it can be modified to handle others using re but
+for now this works.
 Dennis Evangelista, 2015.
 """
 
