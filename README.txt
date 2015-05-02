@@ -4,8 +4,9 @@ This code counts and measures Drosophila eggs in photos.
 
 Example methods text
 --------------------
-Eggs were placed on slides... (LAURA FILL IN). Images of the prepared slides 
-were obtained by... (LAURA FILL IN). Images were xxx by xxx TIFF format images,
+Wash collect: Eggs were laid on Drosophila Instant Media (Carolina Biological Supply) and extracted from media by washing in sucrose water following method of Schou 2013 (http://www.tandfonline.com/doi/pdf/10.4161/fly.22758)
+Apple plate collect: Eggs were laid on agar plates made from apple juice, agar, sucrose, and colored with food coloring. Individual eggs were manually removed from media and placed on slides.
+Images of the prepared slides were obtained from the UNC Microscopy Lab WILD macroscope. Images were xxx by xxx TIFF format images,
 N images for the entire dataset comprising x MB. 
 
 Eggs were automatically counted and measured using routines from the OpenCV 

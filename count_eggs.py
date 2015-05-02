@@ -87,10 +87,14 @@ if __name__ == "__main__":
         # copy what we do for turtle size acceptance limits
         for each in contours:
             m = cv2.moments(each)
-            center,axes,angle = cv2.fitEllipse(each)
+            if len(each)>=5:
+                _,axes,_ = cv2.fitEllipse(each) #fitEllipse only seems to work for >=5 points in the list otherwise it doesnt try. 
+            else:
+                axes = np.array([np.nan,np.nan]) 
             area = m['m00']
             major = np.argmax(axes)
             minor = 1-major
+            # filter based on stuff here
             if area>float(args.athreshold):
                 print("{0},{1},{2},{3},{4},{5}".format(splitted[0],
                                                        splitted[1],
