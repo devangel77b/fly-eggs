@@ -27,12 +27,12 @@ if __name__ == "__main__":
                         help="upper threshold for egg detection, default 64")
     parser.add_argument("--minarea",default=9,
                         help="lower threshold for egg area, default 9 pix")
-    parser.add_argument("--maxarea",default=400,
-                        help="lower threshold for egg area, default 400 pix")
+    parser.add_argument("--maxarea",default=1600,
+                        help="lower threshold for egg area, default 1600 pix")
     parser.add_argument("--minl",default=9,
                         help="lower threshold for egg area, default 9 pix")
-    parser.add_argument("--maxl",default=500,
-                        help="lower threshold for egg area, default 500 pix")
+    parser.add_argument("--maxl",default=60,
+                        help="lower threshold for egg area, default 60 pix")
     parser.add_argument("--display",action="store_true",
                         help="display images while working")
     parser.add_argument("--verbose",action="store_true",
@@ -95,7 +95,11 @@ if __name__ == "__main__":
             major = np.argmax(axes)
             minor = 1-major
             # filter based on stuff here
-            if area>float(args.athreshold):
+            if (area<args.maxarea) and \
+               (area>args.minarea) and \
+               (axes[major]<args.maxl) and \
+               (axes[minor]>args.minl):
+                fcontours.append(each)
                 print("{0},{1},{2},{3},{4},{5}".format(splitted[0],
                                                        splitted[1],
                                                        splitted[2],
