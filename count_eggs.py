@@ -25,8 +25,14 @@ if __name__ == "__main__":
     parser.add_argument("ifile",nargs="+",help="image(s) to count")
     parser.add_argument("--threshold",default=64,
                         help="upper threshold for egg detection, default 64")
-    parser.add_argument("--athreshold",default=9,
+    parser.add_argument("--minarea",default=9,
                         help="lower threshold for egg area, default 9 pix")
+    parser.add_argument("--maxarea",default=400,
+                        help="lower threshold for egg area, default 400 pix")
+    parser.add_argument("--minl",default=9,
+                        help="lower threshold for egg area, default 9 pix")
+    parser.add_argument("--maxl",default=500,
+                        help="lower threshold for egg area, default 500 pix")
     parser.add_argument("--display",action="store_true",
                         help="display images while working")
     parser.add_argument("--verbose",action="store_true",
@@ -75,16 +81,10 @@ if __name__ == "__main__":
         fname,extension = os.path.splitext(tail)
         splitted = fname.split('_')
 
-        # draw stuff
-        if args.display:
-            draw = cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR)
-            cv2.drawContours(draw,contours,-1,(0,0,255),2)
-            cv2.imshow("count_eggs",draw)
-            cv2.waitKey()
-
         # compute moments and tabulate output
         # there should be 24 for the test image
-        # copy what we do for turtle size acceptance limits
+        # also filter the contours
+        fcontours = list()
         for each in contours:
             m = cv2.moments(each)
             if len(each)>=5:
@@ -101,6 +101,13 @@ if __name__ == "__main__":
                                                        splitted[2],
                                                        area,axes[major],
                                                        axes[minor]))
+        
+        # draw stuff
+        if args.display:
+            draw = cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR)
+            cv2.drawContours(draw,fcontours,-1,(0,0,255),2)
+            cv2.imshow("count_eggs",draw)
+            cv2.waitKey()
 
     logging.debug("cleaning up")
     if args.display:
